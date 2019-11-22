@@ -6,6 +6,8 @@
 #my additional
 main.cpp
 graf.txt
+*.vcxproj
+*.vcxproj.filters
 
 # User-specific files
 *.suo
