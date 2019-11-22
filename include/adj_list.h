@@ -15,7 +15,14 @@ public:
 
 	~adj_list();
 
+	int getSize();
+
 	void show();
+
+	list<1> getAdjVert(int);
+	int getDist(int, int);
+
+	void breadth_first_search(int,int*&,int*&);
 };
 
 #endif

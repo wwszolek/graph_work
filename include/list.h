@@ -9,18 +9,21 @@ struct _list_node {
 
 template<int node_size>
 class list {
-private:
+public:
 	_list_node<node_size>* _head;
 
 public:
 	list();
 	~list();
+	list(const list<node_size>&);
+	list<node_size>& operator==(const list<node_size>&);
 
 	void insertHead(const int(&)[node_size]);
 	void delHead();
 
 	void push(const int(&)[node_size]);
-	int* pop();
+	const int* pop();
+	const int* top();
 
 	bool isempty();
 	

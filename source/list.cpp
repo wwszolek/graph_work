@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+
 template <int node_size>
 list<node_size>::list() : _head(NULL) {}
 
@@ -12,6 +13,25 @@ list<node_size>::~list() {
 		delHead();
 }
 
+template <int node_size>
+list<node_size>::list(const list<node_size>& other):_head(NULL) {
+	_list_node<node_size>* p = other._head;
+	while (p) {
+		this->push(p->values);
+		p = p->next;
+	}
+}
+
+template <int node_size>
+list<node_size>& list<node_size>::operator==(const list<node_size>& other) {
+	_list_node<node_size>* p = other._head;
+	while (p) {
+		this->push(_head->values);
+		p = p->next;
+	}
+
+	return *this;
+}
 
 template <int node_size>
 void list<node_size>::insertHead(const int (&_values)[node_size]) {
@@ -49,28 +69,34 @@ void list<node_size>::show() {
 template <int node_size>
 void list<node_size>::push(const int(&_values)[node_size]) {
 	_list_node<node_size>* p = _head;
+	_list_node<node_size>* n = new _list_node<node_size>;
+	n->next = NULL;
+
+	for (int i = 0; i < node_size; i++)
+		n->values[i] = _values[i];
 	if (p) {
 		while (p->next)
 			p = p->next;
 
-		_list_node<node_size>* n = new _list_node<node_size>;
-		for (int i = 0; i < node_size; i++)
-			n->values[i] = _values[i];
-		n->next = NULL;
 		p->next = n;
 	}
 	else {
-		insertHead(_values);
+		_head = n;
 	}
 }
 
 template <int node_size>
-int* list<node_size>::pop() {
+const int* list<node_size>::pop() {
 	int*values = new int[node_size];
 	for (int i = 0; i < node_size; i++)
 		values[i] = _head->values[i];
 	delHead();
 	return values;
+}
+
+template <int node_size>
+const int* list<node_size>::top() {
+	return _head->values;
 }
 
 template <int node_size>
