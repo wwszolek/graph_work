@@ -19,6 +19,11 @@ public:
 	void insertHead(const int(&)[node_size]);
 	void delHead();
 
+	void push(const int(&)[node_size]);
+	int* pop();
+
+	bool isempty();
+	
 	void show();
 };
 
