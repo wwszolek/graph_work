@@ -2,15 +2,32 @@
 #define LIST_H
 
 template<int node_size>
-struct _list_node {
-	_list_node<node_size>* next;
+struct node {
+	node<node_size>* next;
 	int values[node_size];
+
 };
 
 template<int node_size>
 class list {
+	class iterator {
+		node<node_size>* p;
+
+	public:
+		iterator(node<node_size>*);
+		iterator& operator++();
+		iterator operator++(int);
+		bool operator==(const iterator& other)const;
+		bool operator!=(const iterator& other)const;
+
+		node<node_size>*& operator*();
+		node<node_size>* operator->();
+	};
 public:
-	_list_node<node_size>* _head;
+	iterator begin();
+	
+private:
+	node<node_size>* _head;
 
 public:
 	list();
@@ -22,8 +39,8 @@ public:
 	void delHead();
 
 	void push(const int(&)[node_size]);
-	const int* pop();
-	const int* top();
+	int(&pop())[node_size];
+	int(&top())[node_size];
 
 	bool isempty();
 	
