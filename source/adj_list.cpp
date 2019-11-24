@@ -43,21 +43,21 @@ void adj_list::show() {
 }
 
 list<1> adj_list::getAdjVert(int v) {
-	_list_node<2>*p = _list[v]._head;
+	auto p = _list[v].begin();
 	list<1> q;
-	while(p){
+	while(*p){
 		q.push({ p->values[0] });
-		p = p->next;
+		p++;
 	}
 	return q;
 }
 
 int adj_list::getDist(int from, int to) {
-	auto p = _list[from]._head;
-	while (p) {
+	auto p = _list[from].begin();
+	while (*p) {
 		if (p->values[0] == to)
 			return p->values[1];
-		p = p->next;
+		p++;
 	}
 	return -1;
 }
@@ -65,7 +65,8 @@ int adj_list::getDist(int from, int to) {
 void adj_list::breadth_first_search(int start,int*& pi,int*& d) {
 	if (!pi && !d) {
 		int* color = new int[_size];
-		for (int i = 0; i < _size; i++)color[i] = 0;
+		for (int i = 0; i < _size; i++)
+			color[i] = 0;
 		pi = new int[_size];
 		d = new int[_size];
 
@@ -76,11 +77,11 @@ void adj_list::breadth_first_search(int start,int*& pi,int*& d) {
 		d[start] = 0;
 
 		while (!q.isempty()) {
-			int active = *q.pop();
+			int active = q.pop()[0];
 
 			list<1> adj_vert = getAdjVert(active);
 			while (!adj_vert.isempty()) {
-				int adj = *adj_vert.pop();
+				int adj = adj_vert.pop()[0];
 
 				if (color[adj] == 0) {
 					q.push({ adj });
@@ -109,6 +110,61 @@ void adj_list::breadth_first_search(int start,int*& pi,int*& d) {
 			std::cout << d[i] << " ";
 		}
 		std::cout << std::endl;
+
+		delete[] color;
 	}
 
+}
+
+void adj_list::_dfs(int from, int active, int*& color, int*& pi, int*& d) {
+	color[active] = 1;
+	pi[active] = from;
+	if(from>=0)
+		d[active] = d[from] + getDist(from, active);
+	else
+		d[active] = 0;
+
+	list<1> adj_vert = getAdjVert(active);
+	while (!adj_vert.isempty()) {
+		int adj = adj_vert.pop()[0];
+
+		if (color[adj] == 0) {
+			_dfs(active, adj, color, pi, d);
+		}
+	}
+	color[active] = 2;
+
+}
+
+void adj_list::depth_first_search(int start, int*& pi, int*& d) {
+	if (!pi && !d) {
+		int* color = new int[_size];
+		for (int i = 0; i < _size; i++)
+			color[i] = 0;
+		pi = new int[_size];
+		d = new int[_size];
+
+		_dfs(-1, start, color, pi, d);
+
+
+		std::cout << "color" << std::endl;
+		for (int i = 0; i < _size; i++) {
+			std::cout << color[i] << " ";
+		}
+		std::cout << std::endl;
+
+		std::cout << "pi" << std::endl;
+		for (int i = 0; i < _size; i++) {
+			std::cout << pi[i] << " ";
+		}
+		std::cout << std::endl;
+
+		std::cout << "d" << std::endl;
+		for (int i = 0; i < _size; i++) {
+			std::cout << d[i] << " ";
+		}
+		std::cout << std::endl;
+
+		delete[] color;
+	}
 }

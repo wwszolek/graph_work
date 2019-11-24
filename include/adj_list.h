@@ -4,7 +4,7 @@
 #include <string>
 #include "list.h"
 
-class adj_list {
+class adj_list{
 private:
 	list<2>* _list;
 	int _size;
@@ -23,6 +23,11 @@ public:
 	int getDist(int, int);
 
 	void breadth_first_search(int,int*&,int*&);
+
+	private: 
+		void _dfs(int, int, int*&, int*&, int*&);
+	public:
+		void depth_first_search(int, int*&, int*&);
 };
 
 #endif
