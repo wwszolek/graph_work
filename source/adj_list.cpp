@@ -53,7 +53,12 @@ list<1> adj_list::getAdjVert(int v) {
 }
 
 int adj_list::getDist(int from, int to) {
-	return _list[from]._head->values[1];
+	auto p = _list[from]._head;
+	while (p) {
+		if (p->values[0] == to)
+			return p->values[1];
+		p = p->next;
+	}
 }
 
 void adj_list::breadth_first_search(int start,int*& pi,int*& d) {
