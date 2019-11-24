@@ -59,6 +59,7 @@ int adj_list::getDist(int from, int to) {
 			return p->values[1];
 		p = p->next;
 	}
+	return -1;
 }
 
 void adj_list::breadth_first_search(int start,int*& pi,int*& d) {
