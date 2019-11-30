@@ -13,8 +13,9 @@ private:
 public:
 	edge_list();
 	edge_list(const std::string&,bool);
+	edge_list(const list<3>&,bool);
 
-
+	edge_list kruskal_spanning();
 	void show();
 };
 
