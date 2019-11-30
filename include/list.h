@@ -44,6 +44,9 @@ public:
 
 	bool isempty();
 	
+	void replaceAfter(node<node_size>*);
+	void bubbleSort(int);
+
 	void show();
 };
 

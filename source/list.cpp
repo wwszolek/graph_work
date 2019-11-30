@@ -146,6 +146,36 @@ bool list<node_size>::isempty() {
 	return _head == NULL;
 }
 
+template <int node_size>
+void list<node_size>::replaceAfter(node<node_size>*p) {
+	if (p&&p->next&&p->next->next) {
+		auto*k = p->next;
+		p->next = k->next;
+		k->next = p->next->next;
+		p->next->next = k;
+	}
+}
+
+template <int node_size>
+void list<node_size>::bubbleSort(int sort_by){
+	if (!isempty()) {
+		bool Done = false;
+		insertHead(_head->values);
+		while (!Done) {
+			Done = true;
+			auto *p = _head;
+			while (p&&p->next&&p->next->next) {
+				if (p->next->values[sort_by] > p->next->next->values[sort_by]) {
+					replaceAfter(p);
+					Done = false;
+				}
+				p = p->next;
+			}
+		}
+		delHead();
+	}
+}
+
 template class list<1>;
 template class list<2>;
 template class list<3>;
