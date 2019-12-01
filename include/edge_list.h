@@ -15,8 +15,13 @@ public:
 	edge_list(const std::string&,bool);
 	edge_list(const list<3>&,bool);
 
+	void addEdge(int, int, int);
+	void addEdgeSorted(int, int, int);
+	int* popEdge();
+
 	edge_list kruskal_spanning();
 	void show();
+	void sortByWeight();
 };
 
 #endif

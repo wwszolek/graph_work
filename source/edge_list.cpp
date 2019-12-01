@@ -33,14 +33,26 @@ edge_list::edge_list(const std::string& filename,bool t):_top_only(t) {
 
 edge_list::edge_list(const list<3>& list,bool t): _list(list),_top_only(t) {}
 
+void edge_list::addEdge(int from, int to, int weigth) {
+	_list.insertHead({ from,to,weigth });
+}
+
+void edge_list::addEdgeSorted(int from, int to, int weigth) {
+	_list.insertSorted({ from,to,weigth },2);
+}
+
+int* edge_list::popEdge(){
+	return _list.pop();
+}
+
 void edge_list::show() {
 	_list.show();
 }
 
 edge_list edge_list::kruskal_spanning() {
-	_list.bubbleSort(2);
+	sortByWeight();
 
-	int* used = new int[_size];
+	bool* used = new bool[_size];
 	int* forest = new int[_size];
 	int forest_i = 0;
 	for (int i = 0; i < _size; i++) {
@@ -76,4 +88,8 @@ edge_list edge_list::kruskal_spanning() {
 	}
 
 	return edge_list(span,true);
+}
+
+void edge_list::sortByWeight() {
+	_list.bubbleSort(2);
 }
