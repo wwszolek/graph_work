@@ -25,6 +25,7 @@ class list {
 	};
 public:
 	iterator begin();
+	iterator end();
 	
 private:
 	node<node_size>* _head;
@@ -36,13 +37,15 @@ public:
 	list<node_size>& operator==(const list<node_size>&);
 
 	void insertHead(const int(&)[node_size]);
+	void insertSorted(const int(&)[node_size], int);
 	void delHead();
 
-	void push(const int(&)[node_size]);
-	int(&pop())[node_size];
-	int(&top())[node_size];
+	void queue(const int(&)[node_size]);
+	int* pop();
+	int* top();
 
 	bool isempty();
+	int len();
 	
 	void replaceAfter(node<node_size>*);
 	void bubbleSort(int);
