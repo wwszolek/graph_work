@@ -10,7 +10,7 @@ private:
 	int _size;
 
 public:
-	adj_list();
+	adj_list(int);
 	adj_list(const std::string&);
 
 	~adj_list();
@@ -19,15 +19,19 @@ public:
 
 	void show();
 
+	void addEdge(int, int, int);
+
 	list<1> getAdjVert(int);
 	int getDist(int, int);
 
 	void breadth_first_search(int,int*&,int*&);
 
-	private: 
-		void _dfs(int, int, int*&, int*&, int*&);
-	public:
-		void depth_first_search(int, int*&, int*&);
+private: 
+	void _dfs(int, int, int*&, int*&, int*&);
+public:
+	void depth_first_search(int, int*&, int*&);
+
+	adj_list prim_spanning();
 };
 
 #endif
